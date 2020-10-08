@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "field:party_name",
  "creation": "2020-10-07 20:08:00.354466",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -16,7 +17,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Party Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "party_type",
@@ -39,7 +41,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-07 20:08:00.354466",
+ "modified": "2020-10-08 14:42:43.236326",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Party",

@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "field:account",
  "creation": "2020-10-07 20:30:55.934456",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -22,7 +23,8 @@
    "fieldname": "account",
    "fieldtype": "Link",
    "label": "Account",
-   "options": "Account"
+   "options": "Account",
+   "unique": 1
   },
   {
    "fieldname": "debit_amount",
@@ -51,7 +53,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-07 20:30:55.934456",
+ "modified": "2020-10-08 14:51:13.198896",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "GL Entry",

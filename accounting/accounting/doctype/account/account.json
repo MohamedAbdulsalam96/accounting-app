@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "field:account_name",
  "creation": "2020-10-07 20:24:01.537247",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -26,7 +27,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Account Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "account_type",
@@ -89,7 +91,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2020-10-07 20:42:29.849460",
+ "modified": "2020-10-08 14:50:18.348986",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Account",

@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "field:item_name",
  "creation": "2020-10-07 19:30:46.894939",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -21,7 +22,8 @@
   {
    "fieldname": "item_name",
    "fieldtype": "Data",
-   "label": "Item Name"
+   "label": "Item Name",
+   "unique": 1
   },
   {
    "fieldname": "uom",
@@ -38,7 +40,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-07 20:08:42.275212",
+ "modified": "2020-10-08 14:49:32.803871",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Item",

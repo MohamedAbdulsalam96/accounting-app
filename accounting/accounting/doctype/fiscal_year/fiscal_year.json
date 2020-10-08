@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "field:year_name",
  "creation": "2020-10-07 20:09:56.337470",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -15,7 +16,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Year Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "start_date",
@@ -34,7 +36,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-07 20:09:56.337470",
+ "modified": "2020-10-08 14:50:43.590291",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Fiscal Year",
