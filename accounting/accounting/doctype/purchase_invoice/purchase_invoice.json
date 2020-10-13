@@ -1,14 +1,15 @@
 {
  "actions": [],
+ "autoname": "naming_series:",
  "creation": "2020-10-08 11:54:24.400304",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "supplier",
+  "party",
   "posting_date",
-  "series",
-  "due_date",
+  "naming_series",
+  "payment_due_date",
   "items",
   "total_quantity",
   "total_amount",
@@ -18,30 +19,9 @@
  ],
  "fields": [
   {
-   "fieldname": "supplier",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Supplier",
-   "options": "Party",
-   "reqd": 1
-  },
-  {
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date"
-  },
-  {
-   "fieldname": "series",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Series",
-   "options": "ACC-PINV-.YYYY.-\nACC-PINV-RET-.YYYY.-",
-   "reqd": 1
-  },
-  {
-   "fieldname": "due_date",
-   "fieldtype": "Date",
-   "label": "Due Date"
   },
   {
    "fieldname": "items",
@@ -65,7 +45,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Credit To",
-   "options": "Account",
+   "options": "Accounts",
    "reqd": 1
   },
   {
@@ -73,7 +53,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Expense Account",
-   "options": "Account",
+   "options": "Accounts",
    "reqd": 1
   },
   {
@@ -84,12 +64,33 @@
    "options": "Purchase Invoice",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "ACC-PINV-.YYYY.-\nACC-PINV-RET-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "Party",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2020-10-08 12:18:16.812106",
+ "modified": "2020-10-13 07:51:19.629023",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Purchase Invoice",

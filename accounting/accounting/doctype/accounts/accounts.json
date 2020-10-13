@@ -1,7 +1,7 @@
 {
  "actions": [],
  "autoname": "field:account_name",
- "creation": "2020-10-07 20:24:01.537247",
+ "creation": "2020-10-12 20:32:04.249963",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -9,19 +9,14 @@
   "account_number",
   "account_name",
   "account_type",
-  "is_group",
-  "parent_account",
   "opening_balance",
   "lft",
   "rgt",
+  "is_group",
+  "parent_accounts",
   "old_parent"
  ],
  "fields": [
-  {
-   "fieldname": "account_number",
-   "fieldtype": "Data",
-   "label": "Account Number"
-  },
   {
    "fieldname": "account_name",
    "fieldtype": "Data",
@@ -29,29 +24,6 @@
    "label": "Account Name",
    "reqd": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "account_type",
-   "fieldtype": "Select",
-   "label": "Account Type",
-   "options": "Assets\nLiability\nIncome\nExpense"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_group",
-   "fieldtype": "Check",
-   "label": "Is Group"
-  },
-  {
-   "fieldname": "parent_account",
-   "fieldtype": "Link",
-   "label": "Parent Account",
-   "options": "Account"
-  },
-  {
-   "fieldname": "opening_balance",
-   "fieldtype": "Data",
-   "label": "Opening Balance"
   },
   {
    "fieldname": "lft",
@@ -79,23 +51,41 @@
    "fieldname": "old_parent",
    "fieldtype": "Link",
    "label": "Old Parent",
-   "options": "Account"
+   "options": "Accounts"
   },
   {
-   "fieldname": "parent_account",
+   "fieldname": "parent_accounts",
    "fieldtype": "Link",
-   "label": "Parent Account",
-   "options": "Account"
+   "label": "Parent Accounts",
+   "options": "Accounts"
+  },
+  {
+   "fieldname": "account_number",
+   "fieldtype": "Data",
+   "label": "Account Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "account_type",
+   "fieldtype": "Select",
+   "label": "Account Type",
+   "options": "Asset\nLiability\nIncome\nExpense"
+  },
+  {
+   "fieldname": "opening_balance",
+   "fieldtype": "Currency",
+   "label": "Opening Balance",
+   "options": "Company:company:default_currency"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2020-10-08 14:50:18.348986",
+ "modified": "2020-10-13 07:54:29.381001",
  "modified_by": "Administrator",
  "module": "Accounting",
- "name": "Account",
- "nsm_parent_field": "parent_account",
+ "name": "Accounts",
+ "nsm_parent_field": "parent_accounts",
  "owner": "Administrator",
  "permissions": [
   {
@@ -111,7 +101,7 @@
    "write": 1
   }
  ],
- "search_fields": "account_name",
+ "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "title_field": "account_name",

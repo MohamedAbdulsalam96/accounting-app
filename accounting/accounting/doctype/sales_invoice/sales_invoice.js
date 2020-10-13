@@ -2,9 +2,30 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Sales Invoice', {
-	// refresh: function(frm) {
-
-	// }
+	refresh: function (form) {
+		form.add_custom_button(__("General Ledger"), function () {
+			//perform desired action such as routing to new form or fetching etc.
+			frappe.set_route("query-report", "General Ledger");
+		});
+	},
+	setup: function(form){
+		form.set_query("income_account", function(){
+			return {
+				filters: {
+					"account_type": "Income",
+					"is_group": 0
+				}
+			}
+		})
+		form.set_query("debit_to", function(){
+			return {
+				filters: {
+					"parent_accounts": "Account Receivable",
+					"is_group": 0
+				}
+			}
+		})
+	}
 });
 
 frappe.ui.form.on('Sales Invoice Item', {

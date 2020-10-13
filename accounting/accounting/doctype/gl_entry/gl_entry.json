@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "field:account",
+ "autoname": "ACC-GLE-.YYYY.-.#####",
  "creation": "2020-10-07 20:30:55.934456",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -11,7 +11,10 @@
   "debit_amount",
   "credit_amount",
   "voucher_type",
-  "voucher_no"
+  "voucher_no",
+  "party",
+  "due_date",
+  "balance"
  ],
  "fields": [
   {
@@ -23,7 +26,7 @@
    "fieldname": "account",
    "fieldtype": "Link",
    "label": "Account",
-   "options": "Account",
+   "options": "Accounts",
    "unique": 1
   },
   {
@@ -49,11 +52,27 @@
    "fieldtype": "Dynamic Link",
    "label": "Voucher Id",
    "options": "voucher_type"
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Link",
+   "label": "Party",
+   "options": "Party"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Payment Due Date"
+  },
+  {
+   "fieldname": "balance",
+   "fieldtype": "Currency",
+   "label": "Balance"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-08 14:51:13.198896",
+ "modified": "2020-10-13 07:51:34.439793",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "GL Entry",

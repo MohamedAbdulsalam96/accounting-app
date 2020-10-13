@@ -6,5 +6,5 @@ from __future__ import unicode_literals
 # import frappe
 from frappe.utils.nestedset import NestedSet
 
-class Account(NestedSet):
+class Accounts(NestedSet):
 	pass
