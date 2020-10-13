@@ -35,13 +35,13 @@ class JournalEntry(Document):
         for account in self.get("accounting_entries"):
             doc = frappe.get_doc("Accounts", account.account)
             if doc.opening_balance:
-                if doc.account_type == "Assets" or doc.account_type == "Expense":
+                if doc.account_type == "Asset" or doc.account_type == "Expense":
                     if account.debit > 0:
                         doc.opening_balance += account.debit
                     elif account.credit > 0:
                         doc.opening_balance -= account.credit
                     
-                if doc.account_type == "Liabilities" or doc.account_type == "Income":
+                elif doc.account_type == "Liability" or doc.account_type == "Income":
                     if account.debit > 0:
                         doc.opening_balance -= account.debit
                     elif account.credit > 0:

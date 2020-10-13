@@ -26,8 +26,7 @@
    "fieldname": "account",
    "fieldtype": "Link",
    "label": "Account",
-   "options": "Accounts",
-   "unique": 1
+   "options": "Accounts"
   },
   {
    "fieldname": "debit_amount",
@@ -72,7 +71,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-13 07:51:34.439793",
+ "modified": "2020-10-13 11:46:57.344516",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "GL Entry",
