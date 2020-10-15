@@ -92,9 +92,7 @@ def get_gl_entries(filters):
 
     gl_entries = frappe.db.sql(
         """
-        select
-            name as gl_entry, posting_date, account, party,
-            voucher_type, voucher_no, debit_amount, credit_amount
+        select name as gl_entry, posting_date, account, party, voucher_type, voucher_no, debit_amount, credit_amount
         from `tabGL Entry` {conditions} {order_by_statement}
         """.format(conditions=get_conditions(filters),order_by_statement=order_by_statement),
         filters, as_dict=1)
@@ -104,15 +102,15 @@ def get_gl_entries(filters):
 def get_conditions(filters):
     conditions = []
     if filters.get("account"):
-        lft, rgt = frappe.db.get_value("Account", filters["account"], ["lft", "rgt"])
-        conditions.append("""account in (select name from tabAccount
+        lft, rgt = frappe.db.get_value("Accounts", filters["account"], ["lft", "rgt"])
+        conditions.append("""account in (select name from tabAccounts
             where lft>=%s and rgt<=%s and docstatus<2)""" % (lft, rgt))
 
     if filters.get("voucher_no"):
         conditions.append("voucher_no=%(voucher_no)s")
 
     if filters.get("party"):
-        conditions.append("party in %(party)s")
+        conditions.append("party = %(party)s")
     
     from frappe.desk.reportview import build_match_conditions
     match_conditions = build_match_conditions("GL Entry")
@@ -120,7 +118,7 @@ def get_conditions(filters):
     if match_conditions:
         conditions.append(match_conditions)
     
-    return "and {}".format(" and ".join(conditions)) if conditions else ""
+    return "where {}".format(" and ".join(conditions)) if conditions else ""
 
 def get_totals_dict():
     def _get_debit_credit_dict(label):
@@ -152,7 +150,6 @@ def get_accountwise_gle(filters, gl_entries, gle_map):
     entries = []
 
     def update_value_in_dict(data, key, gle):
-        print(gle.amount, gle.debit_amount, gle_map.credit_amount)
         data[key].debit_amount += flt(gle.debit_amount)
         data[key].credit_amount += flt(gle.credit_amount)
 

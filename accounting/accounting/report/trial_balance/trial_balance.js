@@ -2,10 +2,10 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Balance Sheet"] = {
+frappe.query_reports["Trial Balance"] = {
 	"filters": [
 		{
-			"fieldname":"fiscal_year",
+			"fieldname": "fiscal_year",
 			"label": __("Fiscal Year"),
 			"fieldtype": "Link",
 			"options": "Fiscal Year",
@@ -13,9 +13,8 @@ frappe.query_reports["Balance Sheet"] = {
 			"width": "60px"
 		}
 	],
-	"formatter": function(value, row, column, data, default_formatter){
+	"formatter": function (value, row, column, data, default_formatter) {
 		value = default_formatter(value, row, column, data);
-
 		if (data && !data.parent_accounts) {
 			value = $(`<span>${value}</span>`);
 
@@ -26,7 +25,6 @@ frappe.query_reports["Balance Sheet"] = {
 
 			value = $value.wrap("<p></p>").parent().html();
 		}
-
 		return value;
 	}
 };

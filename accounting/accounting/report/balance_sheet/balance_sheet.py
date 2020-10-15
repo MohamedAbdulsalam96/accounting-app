@@ -17,10 +17,20 @@ def execute(filters=None):
     fiscal_year = get_fiscal_year_data(filters.fiscal_year)
     asset = get_data("Asset", fiscal_year)
     liability = get_data("Liability", fiscal_year)
-
+    print(asset[0])
     data = []
     data.extend(asset or [])
+    if asset:
+        data.extend([{
+            "account": "Total Assets",
+            "opening_balance": asset[0].opening_balance
+        }])
     data.extend(liability or [])
+    if liability:
+        data.extend([{
+            "account": "Total Liabilities",
+            "opening_balance": liability[0].opening_balance
+        }])
 
     columns = get_columns(filters.fiscal_year)
     return columns, data
@@ -117,7 +127,6 @@ def set_gl_entries_by_account(start_date, end_date, root_lft, root_rgt, gl_entri
 def accumulate_values_into_parents(accounts, accounts_by_name, fiscal_year):
     for d in reversed(accounts):
         if d.parent_accounts:
-            print(d.parent_accounts, accounts_by_name[d.parent_accounts].get("opening_balance",0.0))
             accounts_by_name[d.parent_accounts]["opening_balance"] = accounts_by_name[d.parent_accounts].get("opening_balance",0.0) + d.get("opening_balance", 0.0)
             
 def prepare_data(accounts, fiscal_year):

@@ -21,7 +21,7 @@ frappe.query_reports["General Ledger"] = {
 			"width": "60px"
 		},
 		{
-			"fieldname":"accounts",
+			"fieldname":"account",
 			"label": __("Accounts"),
 			"fieldtype": "Link",
 			"options": "Accounts"
