@@ -9,7 +9,7 @@
  "filters": [],
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2020-10-13 14:46:04.660258",
+ "modified": "2020-10-16 10:55:16.991108",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "General Ledger",
@@ -18,5 +18,9 @@
  "ref_doctype": "GL Entry",
  "report_name": "General Ledger",
  "report_type": "Script Report",
- "roles": []
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
 }

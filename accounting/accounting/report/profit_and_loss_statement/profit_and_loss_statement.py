@@ -13,7 +13,16 @@ def execute(filters=None):
 
     data = []
     data.extend(income or [])
+    if income:
+        data.extend([{
+            "account": "Total Income",
+            "opening_balance": income[0].opening_balance
+        }])
     data.extend(expense or [])
-
+    if expense:
+            data.extend([{
+                "account": "Total Expenses",
+                "opening_balance": expense[0].opening_balance
+            }])
     columns = get_columns(filters.fiscal_year)
     return columns, data
