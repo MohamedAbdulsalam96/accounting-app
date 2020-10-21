@@ -15,9 +15,6 @@ frappe.ui.form.on('Journal Entry', {
 });
 
 frappe.ui.form.on("Journal Entry Account", {
-	"account": function (form) {
-		set_debit_and_credit(form);
-	},
 	"debit": function (form) {
 		set_debit_and_credit(form);
 	},

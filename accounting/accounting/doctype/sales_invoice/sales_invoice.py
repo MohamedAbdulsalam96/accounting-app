@@ -66,8 +66,8 @@ def make_payment_entry(source_name, target_doc=None):
     from frappe.model.mapper import get_mapped_doc
 
     print("heaven",source_name, target_doc)
-    doclist = get_mapped_doc("Payment Entry", "", {
-        "Payment Entry": {
+    doclist = get_mapped_doc("Sales Invoice", source_name , {
+        "Sales Invoice": {
             "doctype": "Payment Entry",
             "validation": {
                 "docstatus": ["=", 1]
