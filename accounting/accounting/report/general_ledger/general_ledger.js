@@ -31,6 +31,11 @@ frappe.query_reports["General Ledger"] = {
 			"label": __("Party"),
 			"fieldtype": "Link",
 			"options": "Party"
+		},
+		{
+			"fieldname":"voucher_no",
+			"label": __("Voucher No"),
+			"fieldtype": "Data"
 		}
 	]
 };

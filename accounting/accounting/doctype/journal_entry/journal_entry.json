@@ -6,14 +6,18 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "party",
+  "column_break",
   "posting_date",
+  "payment_due_date",
+  "section_break_1",
   "accounting_entries",
+  "section_break",
   "total_debit",
+  "column_break_1",
   "total_credit",
   "difference",
-  "make_difference_entry",
-  "naming_series",
   "amended_from"
  ],
  "fields": [
@@ -43,24 +47,22 @@
    "fieldname": "total_debit",
    "fieldtype": "Currency",
    "label": "Total Debit",
-   "options": "Company:company:default_currency"
+   "options": "Company:company:default_currency",
+   "read_only": 1
   },
   {
    "fieldname": "total_credit",
    "fieldtype": "Currency",
    "label": "Total Credit",
-   "options": "Company:company:default_currency"
+   "options": "Company:company:default_currency",
+   "read_only": 1
   },
   {
    "fieldname": "difference",
    "fieldtype": "Currency",
    "label": "Difference (Dr - Cr)",
-   "options": "Company:company:default_currency"
-  },
-  {
-   "fieldname": "make_difference_entry",
-   "fieldtype": "Button",
-   "label": "Make Difference Entry"
+   "options": "Company:company:default_currency",
+   "read_only": 1
   },
   {
    "fieldname": "naming_series",
@@ -72,17 +74,40 @@
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Amended From",
    "no_copy": 1,
    "options": "Journal Entry",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "payment_due_date",
+   "fieldtype": "Date",
+   "label": "Payment Due Date",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2020-10-08 12:18:27.565316",
+ "modified": "2020-10-20 20:31:42.260006",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Journal Entry",

@@ -6,14 +6,18 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "party",
-  "posting_date",
   "naming_series",
+  "party",
+  "column_break",
+  "posting_date",
   "payment_due_date",
+  "section_break_1",
   "items",
+  "section_break",
   "total_quantity",
-  "total_amount",
   "credit_to",
+  "column_break_1",
+  "total_amount",
   "expense_account",
   "amended_from"
  ],
@@ -21,7 +25,8 @@
   {
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "fieldname": "items",
@@ -33,12 +38,14 @@
   {
    "fieldname": "total_quantity",
    "fieldtype": "Float",
-   "label": "Total Quantity"
+   "label": "Total Quantity",
+   "read_only": 1
   },
   {
    "fieldname": "total_amount",
    "fieldtype": "Float",
-   "label": "Total Amount"
+   "label": "Total Amount",
+   "read_only": 1
   },
   {
    "fieldname": "credit_to",
@@ -59,6 +66,7 @@
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Amended From",
    "no_copy": 1,
    "options": "Purchase Invoice",
@@ -78,19 +86,35 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Supplier",
-   "options": "Party",
-   "reqd": 1
+   "options": "Party"
   },
   {
    "fieldname": "payment_due_date",
    "fieldtype": "Date",
-   "label": "Due Date"
+   "label": "Payment Due Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2020-10-13 07:51:19.629023",
+ "modified": "2020-10-20 10:47:41.010926",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Purchase Invoice",
@@ -112,5 +136,6 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "party",
  "track_changes": 1
 }

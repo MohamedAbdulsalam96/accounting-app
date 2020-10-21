@@ -4,11 +4,22 @@
 frappe.ui.form.on('Purchase Invoice', {
 	refresh: function (form) {
 		form.add_custom_button(__("General Ledger"), function () {
-			//perform desired action such as routing to new form or fetching etc.
+			frappe.route_options = {
+				"voucher_no": form.doc.name,
+				"from_date": form.doc.posting_date,
+				"to_date": form.doc.posting_date
+			};
 			frappe.set_route("query-report", "General Ledger");
 		});
 	},
 	setup: function(form){
+		form.set_query("party", function(){
+			return {
+				filters: {
+					"party_type": "Supplier"
+				}
+			}
+		})
 		form.set_query("expense_account", function(){
 			return {
 				filters: {

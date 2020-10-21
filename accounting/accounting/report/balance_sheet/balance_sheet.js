@@ -10,9 +10,12 @@ frappe.require("/assets/accounting/js/financial_statements.js", function () {
 				"fieldtype": "Link",
 				"options": "Fiscal Year",
 				"reqd": 1,
-				"width": "60px"
+				"width": "60px",
+				"default": frappe.db.get_list("Fiscal Year").then((data) => {
+					return data[0].name;
+				})
 			}
 		],
-		"formatter":accounting.financial_statements.formatter
+		"formatter": accounting.financial_statements.formatter
 	};
 })

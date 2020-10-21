@@ -17,7 +17,6 @@ def execute(filters=None):
     fiscal_year = get_fiscal_year_data(filters.fiscal_year)
     asset = get_data("Asset", fiscal_year)
     liability = get_data("Liability", fiscal_year)
-    print(asset[0])
     data = []
     data.extend(asset or [])
     if asset:
@@ -49,7 +48,7 @@ def get_data(account_type, fiscal_year):
 
         set_gl_entries_by_account(fiscal_year[0].start_date, fiscal_year[0].end_date, root.lft, root.rgt, gl_entries_by_account, ignore_closing_entries=False)
     
-    accumulate_values_into_parents(accounts, accounts_by_name, fiscal_year)
+    accumulate_values_into_parents(accounts, accounts_by_name)
     out = prepare_data(accounts, fiscal_year)
 
     return out
@@ -116,6 +115,7 @@ def set_gl_entries_by_account(start_date, end_date, root_lft, root_rgt, gl_entri
 
     gl_entries = frappe.db.sql("""select posting_date, account, debit_amount, credit_amount, balance from `tabGL Entry`
             where {conditions}
+            and posting_date >= %(from_date)s
             and posting_date <= %(to_date)s
             order by account, posting_date""".format(conditions=conditions), gl_filters, as_dict=True)
 
@@ -124,7 +124,7 @@ def set_gl_entries_by_account(start_date, end_date, root_lft, root_rgt, gl_entri
 
     return gl_entries_by_account
 
-def accumulate_values_into_parents(accounts, accounts_by_name, fiscal_year):
+def accumulate_values_into_parents(accounts, accounts_by_name):
     for d in reversed(accounts):
         if d.parent_accounts:
             accounts_by_name[d.parent_accounts]["opening_balance"] = accounts_by_name[d.parent_accounts].get("opening_balance",0.0) + d.get("opening_balance", 0.0)

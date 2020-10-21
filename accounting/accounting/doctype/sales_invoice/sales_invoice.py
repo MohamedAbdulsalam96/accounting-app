@@ -60,3 +60,19 @@ class SalesInvoice(Document):
 
         if gl_entry:
             make_gl_entries(gl_entry)
+
+@frappe.whitelist()
+def make_payment_entry(source_name, target_doc=None):
+    from frappe.model.mapper import get_mapped_doc
+
+    print("heaven",source_name, target_doc)
+    doclist = get_mapped_doc("Payment Entry", "", {
+        "Payment Entry": {
+            "doctype": "Payment Entry",
+            "validation": {
+                "docstatus": ["=", 1]
+            }
+        }
+    }, target_doc)
+
+    return doclist

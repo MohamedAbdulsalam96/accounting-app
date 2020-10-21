@@ -4,12 +4,29 @@
 frappe.ui.form.on('Sales Invoice', {
 	refresh: function (form) {
 		form.add_custom_button(__("General Ledger"), function () {
-			//perform desired action such as routing to new form or fetching etc.
+			frappe.route_options = {
+				"voucher_no": form.doc.name,
+				"from_date": form.doc.posting_date,
+				"to_date": form.doc.posting_date
+			};
 			frappe.set_route("query-report", "General Ledger");
 		});
+		form.add_custom_button(__("Payment Entry"), function () {
+			frappe.model.open_mapped_doc({
+				method: "accounting.accounting.doctype.sales_invoice.sales_invoice.make_payment_entry",
+				frm: cur_frm
+			})
+		}, __("Create")).addClass("btn-primary");
 	},
-	setup: function(form){
-		form.set_query("income_account", function(){
+	setup: function (form) {
+		form.set_query("party", function () {
+			return {
+				filters: {
+					"party_type": "Customer"
+				}
+			}
+		})
+		form.set_query("income_account", function () {
 			return {
 				filters: {
 					"account_type": "Income",
@@ -17,7 +34,7 @@ frappe.ui.form.on('Sales Invoice', {
 				}
 			}
 		})
-		form.set_query("debit_to", function(){
+		form.set_query("debit_to", function () {
 			return {
 				filters: {
 					"parent_accounts": "Account Receivable",
@@ -25,7 +42,21 @@ frappe.ui.form.on('Sales Invoice', {
 				}
 			}
 		})
-	}
+	},
+	/* make_payment_entry: function (form) {
+		return frappe.call({
+			method:
+			"erpnext.accounts.doctype.payment_entry.payment_entry.get_payment_entry",
+			args: {
+				dt: form.doc.doctype,
+				dn: form.doc.name,
+			},
+			callback: function (r) {
+				var doc = frappe.model.sync(r.message);
+				frappe.set_route("Form", doc[0].doctype, doc[0].name);
+			},
+		});
+	} */
 });
 
 frappe.ui.form.on('Sales Invoice Item', {
@@ -48,7 +79,7 @@ frappe.ui.form.on('Sales Invoice Item', {
 	qty: function (form, cdt, cdn) {
 		var document = frappe.get_doc(cdt, cdn);
 		frappe.model.set_value(cdt, cdn, "amount", document.rate * document.qty);
-		set_total_quantity_and_amount(form)	
+		set_total_quantity_and_amount(form)
 	}
 })
 

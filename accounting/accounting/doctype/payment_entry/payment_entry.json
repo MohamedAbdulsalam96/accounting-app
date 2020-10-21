@@ -7,32 +7,24 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "receive",
+  "payment_type",
+  "column_break",
   "posting_date",
-  "party_section",
-  "party",
+  "payment_due_date",
   "accounts_section",
   "account_paid_from",
+  "party",
+  "column_break_1",
   "account_paid_to",
   "amount_paid",
   "amended_from"
  ],
  "fields": [
   {
-   "fieldname": "receive",
-   "fieldtype": "Select",
-   "label": "Payment Type",
-   "options": "Receive\nPay\nInternal Transfer"
-  },
-  {
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
-  },
-  {
-   "fieldname": "party_section",
-   "fieldtype": "Section Break",
-   "label": "Payment From / To"
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "fieldname": "party",
@@ -71,6 +63,7 @@
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Amended From",
    "no_copy": 1,
    "options": "Payment Entry",
@@ -84,12 +77,32 @@
    "label": "Series",
    "options": "ACC-PAY-.YYYY.-",
    "reqd": 1
+  },
+  {
+   "fieldname": "payment_due_date",
+   "fieldtype": "Date",
+   "label": "Payment Due Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_type",
+   "fieldtype": "Select",
+   "label": "Payment Type",
+   "options": "Receive\nPay"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2020-10-13 07:52:24.602547",
+ "modified": "2020-10-20 12:25:22.811633",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Payment Entry",
@@ -108,8 +121,8 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "party",
  "track_changes": 1
 }

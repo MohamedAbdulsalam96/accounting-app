@@ -8,6 +8,7 @@
  "field_order": [
   "party_name",
   "party_type",
+  "column_break",
   "party_email",
   "party_number"
  ],
@@ -37,11 +38,15 @@
    "fieldname": "party_number",
    "fieldtype": "Data",
    "label": "Phone Number"
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-08 14:42:43.236326",
+ "modified": "2020-10-19 18:20:00.084722",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Party",

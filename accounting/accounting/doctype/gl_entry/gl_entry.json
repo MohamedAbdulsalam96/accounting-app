@@ -69,9 +69,10 @@
    "label": "Balance"
   }
  ],
+ "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-13 11:46:57.344516",
+ "modified": "2020-10-20 11:09:34.363524",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "GL Entry",
@@ -91,6 +92,7 @@
   }
  ],
  "quick_entry": 1,
+ "read_only": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

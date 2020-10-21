@@ -8,12 +8,16 @@
  "field_order": [
   "naming_series",
   "party",
+  "column_break",
   "posting_date",
   "payment_due_date",
+  "section_break",
   "items",
+  "section_break_1",
   "total_qty",
-  "total_amount",
   "debit_to",
+  "column_break_1",
+  "total_amount",
   "income_account",
   "amended_from"
  ],
@@ -27,12 +31,14 @@
   {
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "fieldname": "payment_due_date",
    "fieldtype": "Date",
-   "label": "Payment Due Date"
+   "label": "Payment Due Date",
+   "reqd": 1
   },
   {
    "fieldname": "items",
@@ -44,12 +50,14 @@
   {
    "fieldname": "total_qty",
    "fieldtype": "Float",
-   "label": "Total Quantity"
+   "label": "Total Quantity",
+   "read_only": 1
   },
   {
    "fieldname": "total_amount",
    "fieldtype": "Float",
-   "label": "Total Amount"
+   "label": "Total Amount",
+   "read_only": 1
   },
   {
    "fieldname": "debit_to",
@@ -68,6 +76,7 @@
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Amended From",
    "no_copy": 1,
    "options": "Sales Invoice",
@@ -81,12 +90,28 @@
    "label": "Series",
    "options": "ACC-SINV-.YYYY.-\nACC-SINV-RET-.YYYY.-",
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2020-10-13 07:51:46.826763",
+ "modified": "2020-10-20 10:35:31.772829",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Sales Invoice",

@@ -4,17 +4,24 @@
 frappe.ui.form.on('Journal Entry', {
 	refresh: function (form) {
 		form.add_custom_button(__("General Ledger"), function () {
-			//perform desired action such as routing to new form or fetching etc.
+			frappe.route_options = {
+				"voucher_no": form.doc.name,
+				"from_date": form.doc.posting_date,
+				"to_date": form.doc.posting_date
+			};
 			frappe.set_route("query-report", "General Ledger");
 		});
-	} 
+	}
 });
 
 frappe.ui.form.on("Journal Entry Account", {
+	"account": function (form) {
+		set_debit_and_credit(form);
+	},
 	"debit": function (form) {
 		set_debit_and_credit(form);
 	},
-	"credit": function(form){
+	"credit": function (form) {
 		set_debit_and_credit(form);
 	}
 })
@@ -27,6 +34,7 @@ var set_debit_and_credit = function (form) {
 		total_credit += flt(accounts[i].credit, precision("credit", accounts[i]));
 	}
 	var difference = flt((total_debit - total_credit), precision("difference"))
+
 	frappe.model.set_value(form.doctype, form.docname, "total_debit", total_debit);
 	frappe.model.set_value(form.doctype, form.docname, "total_credit", total_credit);
 	frappe.model.set_value(form.doctype, form.docname, "difference", difference);

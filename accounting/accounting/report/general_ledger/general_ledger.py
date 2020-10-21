@@ -4,7 +4,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _, _dict
-from frappe.utils import getdate, cstr, flt, fmt_money
+from frappe.utils import getdate, cstr, flt
 
 def execute(filters=None):
     columns, data = [], []
@@ -14,9 +14,6 @@ def execute(filters=None):
     return columns, data
 
 def validate_filters(filters):
-    if not filters.get("from_date") and not filters.get("to_date"):
-        frappe.throw(_("{0} and {1} are mandatory").format(frappe.bold(_("From Date")), frappe.bold(_("To Date"))))
-    
     if filters.from_date > filters.to_date:
         frappe.throw(_("From Date must be before To Date"))
     
@@ -112,6 +109,9 @@ def get_conditions(filters):
     if filters.get("party"):
         conditions.append("party = %(party)s")
     
+    conditions.append("posting_date>=%(from_date)s")
+    conditions.append("posting_date<=%(to_date)s")
+    
     from frappe.desk.reportview import build_match_conditions
     match_conditions = build_match_conditions("GL Entry")
 
@@ -135,8 +135,7 @@ def get_totals_dict():
 def get_data_with_opening_closing(filters, gl_entries):
     data = []
 
-    gle_map = _dict(totals=get_totals_dict(), entries=[])
-    totals, entries = get_accountwise_gle(filters, gl_entries, gle_map)
+    totals, entries = get_accountwise_gle(filters, gl_entries)
     data.append(totals.opening)
     data += entries
     data.append(totals.total)
@@ -145,7 +144,7 @@ def get_data_with_opening_closing(filters, gl_entries):
     return data
 
 
-def get_accountwise_gle(filters, gl_entries, gle_map):
+def get_accountwise_gle(filters, gl_entries):
     totals = get_totals_dict()
     entries = []
 

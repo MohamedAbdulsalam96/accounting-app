@@ -9,11 +9,12 @@
   "account_number",
   "account_name",
   "account_type",
-  "opening_balance",
+  "is_group",
   "lft",
   "rgt",
-  "is_group",
+  "column_break",
   "parent_accounts",
+  "opening_balance",
   "old_parent"
  ],
  "fields": [
@@ -50,8 +51,10 @@
   {
    "fieldname": "old_parent",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Old Parent",
-   "options": "Accounts"
+   "options": "Accounts",
+   "read_only": 1
   },
   {
    "fieldname": "parent_accounts",
@@ -75,13 +78,18 @@
    "fieldname": "opening_balance",
    "fieldtype": "Currency",
    "label": "Opening Balance",
-   "options": "Company:company:default_currency"
+   "options": "Company:company:default_currency",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2020-10-13 07:54:29.381001",
+ "modified": "2020-10-19 16:53:06.038236",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Accounts",

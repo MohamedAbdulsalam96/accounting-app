@@ -6,8 +6,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "disabled",
   "item_code",
   "item_name",
+  "column_break",
   "uom",
   "standard_rate"
  ],
@@ -36,11 +38,21 @@
    "fieldname": "standard_rate",
    "fieldtype": "Currency",
    "label": "Standard Selling Rate"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-08 14:49:32.803871",
+ "modified": "2020-10-19 16:55:17.525441",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Item",
