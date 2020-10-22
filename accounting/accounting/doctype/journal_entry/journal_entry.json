@@ -45,23 +45,20 @@
   },
   {
    "fieldname": "total_debit",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Total Debit",
-   "options": "Company:company:default_currency",
    "read_only": 1
   },
   {
    "fieldname": "total_credit",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Total Credit",
-   "options": "Company:company:default_currency",
    "read_only": 1
   },
   {
    "fieldname": "difference",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Difference (Dr - Cr)",
-   "options": "Company:company:default_currency",
    "read_only": 1
   },
   {
@@ -107,7 +104,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2020-10-20 20:31:42.260006",
+ "modified": "2020-10-22 17:43:11.843218",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Journal Entry",

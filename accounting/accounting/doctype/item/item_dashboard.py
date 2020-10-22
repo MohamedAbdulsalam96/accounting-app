@@ -8,8 +8,12 @@ def get_data():
 		'fieldname': 'item',
 		'transactions': [
 			{
-				'label': _('Invoices'),
-				'items': ['Sales Invoice', 'Purchase Invoice']
+				'label': _('Sell'),
+				'items': ['Sales Invoice']
+			},
+			{
+				'label': _('Buy'),
+				'items': ['Purchase Invoice']
 			}
 		]
 	}

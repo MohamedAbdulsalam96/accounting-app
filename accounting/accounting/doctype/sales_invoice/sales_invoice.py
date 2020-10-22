@@ -12,7 +12,7 @@ class SalesInvoice(Document):
 
     def check_quantity(self):
         for item in self.get("items"):
-            if item.qty <= 0:
+            if item.qty and item.qty <= 0:
                 frappe.throw("One or more quantity is required for each product")
 
     def on_submit(self):
@@ -65,10 +65,14 @@ class SalesInvoice(Document):
 def make_payment_entry(source_name, target_doc=None):
     from frappe.model.mapper import get_mapped_doc
 
-    print("heaven",source_name, target_doc)
     doclist = get_mapped_doc("Sales Invoice", source_name , {
         "Sales Invoice": {
             "doctype": "Payment Entry",
+            "field_map": {
+                "amount_paid": "total_amount",
+                "amount_paid_from": "income_account",
+                "amount_paid_to": "debit_to"
+            },
             "validation": {
                 "docstatus": ["=", 1]
             }

@@ -11,6 +11,13 @@ frappe.ui.form.on('Purchase Invoice', {
 			};
 			frappe.set_route("query-report", "General Ledger");
 		});
+		form.add_custom_button(__("Payment Entry"), function () {
+			frappe.model.open_mapped_doc({
+				method: "accounting.accounting.doctype.purchase_invoice.purchase_invoice.make_payment_entry",
+				frm: cur_frm
+			})
+		}, __("Create"));
+		form.page.set_inner_btn_group_as_primary(__('Create'));
 	},
 	setup: function(form){
 		form.set_query("party", function(){

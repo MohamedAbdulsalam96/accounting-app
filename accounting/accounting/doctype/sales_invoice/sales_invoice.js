@@ -16,7 +16,8 @@ frappe.ui.form.on('Sales Invoice', {
 				method: "accounting.accounting.doctype.sales_invoice.sales_invoice.make_payment_entry",
 				frm: cur_frm
 			})
-		}, __("Create")).addClass("btn-primary");
+		}, __("Create"));
+		form.page.set_inner_btn_group_as_primary(__('Create'));
 	},
 	setup: function (form) {
 		form.set_query("party", function () {
@@ -42,21 +43,7 @@ frappe.ui.form.on('Sales Invoice', {
 				}
 			}
 		})
-	},
-	/* make_payment_entry: function (form) {
-		return frappe.call({
-			method:
-			"erpnext.accounts.doctype.payment_entry.payment_entry.get_payment_entry",
-			args: {
-				dt: form.doc.doctype,
-				dn: form.doc.name,
-			},
-			callback: function (r) {
-				var doc = frappe.model.sync(r.message);
-				frappe.set_route("Form", doc[0].doctype, doc[0].name);
-			},
-		});
-	} */
+	}
 });
 
 frappe.ui.form.on('Sales Invoice Item', {

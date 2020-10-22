@@ -60,3 +60,21 @@ class PurchaseInvoice(Document):
 
         if gl_entry:
             make_gl_entries(gl_entry)
+
+@frappe.whitelist()
+def make_payment_entry(source_name, target_doc=None):
+    from frappe.model.mapper import get_mapped_doc
+
+    doclist = get_mapped_doc("Purchase Invoice", source_name , {
+        "Purchase Invoice": {
+            "doctype": "Payment Entry",
+            "field_map": {
+				"amount_paid": "total_amount"
+			},
+            "validation": {
+                "docstatus": ["=", 1]
+            }
+        }
+    }, target_doc)
+
+    return doclist
