@@ -45,21 +45,18 @@
   },
   {
    "fieldname": "total_debit",
-   "fieldtype": "Float",
-   "label": "Total Debit",
-   "read_only": 1
+   "fieldtype": "Currency",
+   "label": "Total Debit"
   },
   {
    "fieldname": "total_credit",
-   "fieldtype": "Float",
-   "label": "Total Credit",
-   "read_only": 1
+   "fieldtype": "Currency",
+   "label": "Total Credit"
   },
   {
    "fieldname": "difference",
-   "fieldtype": "Float",
-   "label": "Difference (Dr - Cr)",
-   "read_only": 1
+   "fieldtype": "Currency",
+   "label": "Difference (Dr - Cr)"
   },
   {
    "fieldname": "naming_series",
@@ -104,7 +101,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2020-10-22 17:43:11.843218",
+ "modified": "2020-10-23 11:53:09.634021",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Journal Entry",

@@ -31,14 +31,12 @@
   {
    "fieldname": "debit_amount",
    "fieldtype": "Currency",
-   "label": "Debit Amount",
-   "options": "Company:company:default_currency"
+   "label": "Debit Amount"
   },
   {
    "fieldname": "credit_amount",
    "fieldtype": "Currency",
-   "label": "Credit Amount",
-   "options": "Company:company:default_currency"
+   "label": "Credit Amount"
   },
   {
    "fieldname": "voucher_type",
@@ -72,7 +70,7 @@
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-20 11:09:34.363524",
+ "modified": "2020-10-23 16:29:06.026687",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "GL Entry",

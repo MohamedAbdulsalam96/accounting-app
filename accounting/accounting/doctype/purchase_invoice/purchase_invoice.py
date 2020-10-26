@@ -5,10 +5,24 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
+from frappe.utils import flt
 
 class PurchaseInvoice(Document):
     def validate(self):
+        self.set_item_rate_and_amount()
+        self.set_total_quantity_and_amount()
         self.check_quantity()
+
+    def set_item_rate_and_amount(self):
+        for item in self.get("items"):
+            item.rate = frappe.db.get_value("Item", item.item, "standard_rate")
+            item.amount = item.rate * item.qty
+            
+    def set_total_quantity_and_amount(self):
+        self.total_qty, self.total_amount = 0, 0
+        for item in self.get("items"):
+            self.total_qty = flt(self.total_qty) + flt(item.qty, item.precision("qty"))
+            self.total_amount = flt(self.total_amount) + flt(item.amount, item.precision("amount"))
 
     def check_quantity(self):
         for item in self.get("items"):

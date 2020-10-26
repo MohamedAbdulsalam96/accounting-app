@@ -9,13 +9,13 @@ from frappe.utils import nowdate
 from accounting.accounting.doctype.accounts.test_accounts import create_account, delete_account
 
 class TestPaymentEntry(unittest.TestCase):
-    """ def setUp(self):
-            create_account("ACC-100","_Test Debtors", "Asset", "Assets")
-            create_account("ACC-100","_Test Creditors", "Liability", "Liabilities") """
+    def setUp(self):
+        create_account("ACC-100","_Test Debtors", "Asset", "Assets")
+        create_account("ACC-100","_Test Creditors", "Liability", "Liabilities")
 
-    """ def tearDown(self):
-            delete_account("_Test Debtors")
-            delete_account("_Test Creditors") """
+    def tearDown(self):
+        delete_account("_Test Debtors")
+        delete_account("_Test Creditors")
     
     def test_payment_entry_creation(self):
         pe = make_payment_entry(500, "Receive", True, True)

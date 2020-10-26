@@ -40,7 +40,6 @@ class TestJournalEntry(unittest.TestCase):
 
         for field in ("debit_amount", "credit_amount"):
             for i, gle in enumerate(gl_entries):
-                print(gle)
                 self.assertEqual(expected_values[gle.account][field], gle[field])
         
         for gl in gl_entries:

@@ -50,14 +50,12 @@
   {
    "fieldname": "total_qty",
    "fieldtype": "Float",
-   "label": "Total Quantity",
-   "read_only": 1
+   "label": "Total Quantity"
   },
   {
    "fieldname": "total_amount",
    "fieldtype": "Float",
-   "label": "Total Amount",
-   "read_only": 1
+   "label": "Total Amount"
   },
   {
    "fieldname": "debit_to",
@@ -111,7 +109,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2020-10-20 10:35:31.772829",
+ "modified": "2020-10-23 12:02:04.710555",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Sales Invoice",

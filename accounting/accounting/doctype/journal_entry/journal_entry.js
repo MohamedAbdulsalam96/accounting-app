@@ -11,6 +11,9 @@ frappe.ui.form.on('Journal Entry', {
 			};
 			frappe.set_route("query-report", "General Ledger");
 		});
+		cur_frm.set_df_property("total_debit","read_only",1)
+		cur_frm.set_df_property("total_credit","read_only",1)
+		cur_frm.set_df_property("difference","read_only",1)
 	}
 });
 
