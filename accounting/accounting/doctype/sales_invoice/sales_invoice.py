@@ -83,9 +83,9 @@ def make_payment_entry(source_name, target_doc=None):
         "Sales Invoice": {
             "doctype": "Payment Entry",
             "field_map": {
-                "amount_paid": "total_amount",
-                "amount_paid_from": "income_account",
-                "amount_paid_to": "debit_to"
+                "total_amount": "amount_paid",
+                "debit_to": "account_paid_from",
+                "income_account": "account_paid_to"
             },
             "validation": {
                 "docstatus": ["=", 1]
