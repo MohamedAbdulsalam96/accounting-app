@@ -85,7 +85,7 @@ def get_data(filters):
     return result
 
 def get_gl_entries(filters):
-    order_by_statement = "order by voucher_no"
+    order_by_statement = "order by voucher_no, account"
 
     gl_entries = frappe.db.sql(
         """

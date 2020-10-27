@@ -14,7 +14,8 @@
   "voucher_no",
   "party",
   "due_date",
-  "balance"
+  "balance",
+  "is_cancelled"
  ],
  "fields": [
   {
@@ -65,12 +66,18 @@
    "fieldname": "balance",
    "fieldtype": "Currency",
    "label": "Balance"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_cancelled",
+   "fieldtype": "Check",
+   "label": "Is Cancelled"
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-23 16:29:06.026687",
+ "modified": "2020-10-27 11:39:20.151338",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "GL Entry",
@@ -90,7 +97,6 @@
   }
  ],
  "quick_entry": 1,
- "read_only": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

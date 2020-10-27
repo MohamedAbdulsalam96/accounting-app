@@ -22,7 +22,7 @@ class TestJournalEntry(unittest.TestCase):
 
         jv = make_journal_entry("_Test Debtors", "_Test Creditors", "Jannat Patel", 100, True, True)
 
-        gl_entries = frappe.db.sql(""" select * from `tabGL Entry` where voucher_no=%s and voucher_type='Journal Entry' """, jv.name, as_dict=1)
+        gl_entries = get_gl_entries(jv.name, "Journal Entry")
         self.assertTrue(gl_entries)
 
         self.assertTrue(get_account("_Test Debtors"))
@@ -42,11 +42,9 @@ class TestJournalEntry(unittest.TestCase):
             for i, gle in enumerate(gl_entries):
                 self.assertEqual(expected_values[gle.account][field], gle[field])
         
-        for gl in gl_entries:
-            frappe.delete_doc("GL Entry", gl.name)
+        delete_gl_entries(gl_entries)
 
-        gle = frappe.db.sql(""" select * from `tabGL Entry` where voucher_no=%s and voucher_type='Sales Invoice' """, jv.name)
-        self.assertFalse(gle)
+        self.assertFalse(get_gl_entries(jv.name, "Journal Entry"))
 
         jv.cancel()
         jv.delete()
@@ -57,6 +55,7 @@ class TestJournalEntry(unittest.TestCase):
             "debit": 200
         })
         self.assertRaises(frappe.exceptions.ValidationError, jv.insert)
+
         jv.accounting_entries[0].update({
             "debit": 100
         })
@@ -65,6 +64,22 @@ class TestJournalEntry(unittest.TestCase):
         self.assertTrue(jv_entry)
         jv.delete()
 
+    def test_reverse_ledger_entry(self):
+        jv = make_journal_entry("_Test Debtors", "_Test Creditors", "Jannat Patel", 100, True, True)
+
+        gl_entries = get_gl_entries(jv.name, "Journal Entry")
+        original_gl_entries_count = len(gl_entries)
+
+        jv.cancel();
+        gl_entries = get_gl_entries(jv.name, "Journal Entry")
+
+        self.assertTrue(len(gl_entries)/2 == original_gl_entries_count)
+
+        for gl in gl_entries:
+            self.assertTrue(gl.is_cancelled)
+        
+        delete_gl_entries(gl_entries)
+        jv.delete()
 
 def make_journal_entry(account1, account2, party, amount, save=True, submit=False ):
     jv = frappe.new_doc("Journal Entry")
@@ -94,7 +109,14 @@ def make_journal_entry(account1, account2, party, amount, save=True, submit=Fals
 def get_account(name):
     return frappe.db.sql(""" select * from `tabAccounts` where name=%s """, name)
 
-    
+def get_gl_entries(voucher_no, voucher_type):
+    return frappe.db.sql(""" select * from `tabGL Entry` where voucher_no=%s and voucher_type=%s """, (voucher_no, voucher_type), as_dict=1)
+
+def delete_gl_entries(gl_entries):
+    for gl in gl_entries:
+        gle = frappe.get_doc("GL Entry", gl.name)
+        gle.cancel()
+        gle.delete()
 
     
     

@@ -7,6 +7,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt
+from accounting.accounting.general_ledger import make_gl_entries, make_reverse_gl_entries
 
 class JournalEntry(Document):
     def validate(self):
@@ -25,11 +26,16 @@ class JournalEntry(Document):
         
             self.total_debit = flt(self.total_debit) + flt(account.debit, account.precision("debit"))
             self.total_credit = flt(self.total_credit) + flt(account.credit, account.precision("credit"))
+
         self.difference = flt(self.total_debit, self.precision("total_debit")) - flt(self.total_credit, self.precision("total_credit"))
 
     def on_submit(self):
         self.balance_change()
         self.make_gl_entry()
+    
+    def on_cancel(self):
+        self.ignore_linked_doctypes = ('GL Entry')
+        make_reverse_gl_entries(voucher_type=self.doctype, voucher_no=self.name)
 
     def balance_change(self):
         for account in self.get("accounting_entries"):
@@ -49,7 +55,6 @@ class JournalEntry(Document):
                 doc.save()
 
     def make_gl_entry(self):
-        from accounting.accounting.general_ledger import make_gl_entries
         gl_entry = [];
         for account in self.get("accounting_entries"):
             gl_entry.append({

@@ -7,6 +7,7 @@ import frappe
 import unittest
 from frappe.utils import nowdate
 from accounting.accounting.doctype.accounts.test_accounts import create_account, delete_account
+from accounting.accounting.doctype.journal_entry.test_journal_entry import get_gl_entries, delete_gl_entries
 
 class TestSalesInvoice(unittest.TestCase):
 
@@ -21,7 +22,7 @@ class TestSalesInvoice(unittest.TestCase):
     def test_sales_invoice_creation(self):
         si = make_sales_invoice(1, True, True)
 
-        gl_entries = frappe.db.sql(""" select * from `tabGL Entry` where voucher_no=%s and voucher_type='Sales Invoice' """, si.name, as_dict=1)
+        gl_entries = get_gl_entries(si.name, "Sales Invoice")
         self.assertTrue(gl_entries)
 
         expected_values = {
@@ -38,8 +39,7 @@ class TestSalesInvoice(unittest.TestCase):
             for i, gle in enumerate(gl_entries):
                 self.assertEqual(expected_values[gle.account][field], gle[field])
 
-        for gl in gl_entries:
-            frappe.delete_doc("GL Entry", gl.name)
+        delete_gl_entries(gl_entries)
         
         si.cancel()
         si.delete()
@@ -53,6 +53,23 @@ class TestSalesInvoice(unittest.TestCase):
         si.insert()
         si_entry = frappe.db.sql(""" select * from `tabSales Invoice` where name=%s """, si.name, as_dict=1)
         self.assertTrue(si_entry)
+        si.delete()
+
+    def test_reverse_ledger_entry(self):
+        si = make_sales_invoice(1, True, True)
+
+        gl_entries = get_gl_entries(si.name, "Sales Invoice")
+        original_gl_entries_count = len(gl_entries)
+
+        si.cancel();
+        gl_entries = get_gl_entries(si.name, "Sales Invoice")
+
+        self.assertTrue(len(gl_entries)/2 == original_gl_entries_count)
+
+        for gl in gl_entries:
+            self.assertTrue(gl.is_cancelled)
+        
+        delete_gl_entries(gl_entries)
         si.delete()
 
 def make_sales_invoice(qty, save=True, submit=False ):

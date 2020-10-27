@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 from frappe.utils import flt
+from accounting.accounting.general_ledger import make_gl_entries, make_reverse_gl_entries
 
 class PurchaseInvoice(Document):
     def validate(self):
@@ -33,6 +34,10 @@ class PurchaseInvoice(Document):
         self.balance_change()
         self.make_gl_entry()
 
+    def on_cancel(self):
+        self.ignore_linked_doctypes = ('GL Entry')
+        make_reverse_gl_entries(voucher_type=self.doctype, voucher_no=self.name)
+
     def balance_change(self):
         self.perform_balance_change(self.get("credit_to"), "credit")
         self.perform_balance_change(self.get("expense_account"), "expense")
@@ -47,7 +52,6 @@ class PurchaseInvoice(Document):
             doc.save()
             
     def make_gl_entry(self):
-        from accounting.accounting.general_ledger import make_gl_entries
         gl_entry = [];
         gl_entry.append({
             "posting_date": self.get("posting_date"),
