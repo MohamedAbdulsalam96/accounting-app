@@ -1,0 +1,40 @@
+{
+ "cards": [
+  {
+   "hidden": 0,
+   "label": "Masters",
+   "links": "[\n    {\n        \"label\": \"Item\",\n        \"name\": \"Item\",\n        \"onboard\": 1,\n        \"type\": \"doctype\"\n    },\n    {\n        \"label\": \"Party\",\n        \"name\": \"Party\",\n        \"onboard\": 1,\n        \"type\": \"doctype\"\n    },\n    {\n        \"description\": \"Tree of financial accounts.\",\n        \"icon\": \"fa fa-sitemap\",\n        \"label\": \"Chart of Accounts\",\n        \"name\": \"Accounts\",\n        \"onboard\": 1,\n        \"route\": \"#Tree/Accounts\",\n        \"type\": \"doctype\"\n    },\n    {\n        \"label\": \"Fiscal Year\",\n        \"name\": \"Fiscal Year\",\n        \"onboard\": 1,\n        \"type\": \"doctype\"\n    }\n]"
+  },
+  {
+   "hidden": 0,
+   "label": "Transactions",
+   "links": "[\n    {\n        \"label\": \"Journal Entry\",\n        \"name\": \"Journal Entry\",\n        \"onboard\": 1,\n        \"type\": \"doctype\"\n    },\n    {\n        \"label\": \"Sales Invoice\",\n        \"name\": \"Sales Invoice\",\n        \"onboard\": 1,\n        \"type\": \"doctype\"\n    },\n    {\n        \"label\": \"Purchase Invoice\",\n        \"name\": \"Purchase Invoice\",\n        \"onboard\": 1,\n        \"type\": \"doctype\"\n    },\n    {\n        \"label\": \"Payment Entry\",\n        \"name\": \"Payment Entry\",\n        \"onboard\": 1,\n        \"type\": \"doctype\"\n    }\n]"
+  },
+  {
+   "hidden": 0,
+   "label": "Reports",
+   "links": "[\n    {\n        \"dependencies\": [\n            \"GL Entry\"\n        ],\n        \"doctype\": \"GL Entry\",\n        \"is_query_report\": true,\n        \"label\": \"General Ledger\",\n        \"name\": \"General Ledger\",\n        \"type\": \"report\"\n    },\n    {\n        \"dependencies\": [\n            \"GL Entry\"\n        ],\n        \"doctype\": \"GL Entry\",\n        \"is_query_report\": true,\n        \"label\": \"Profit and Loss Statement\",\n        \"name\": \"Profit and Loss Statement\",\n        \"type\": \"report\"\n    },\n    {\n        \"dependencies\": [\n            \"GL Entry\"\n        ],\n        \"doctype\": \"GL Entry\",\n        \"is_query_report\": true,\n        \"label\": \"Balance Sheet\",\n        \"name\": \"Balance Sheet\",\n        \"type\": \"report\"\n    },\n    {\n        \"dependencies\": [\n            \"GL Entry\"\n        ],\n        \"doctype\": \"GL Entry\",\n        \"is_query_report\": true,\n        \"label\": \"Trial Balance\",\n        \"name\": \"Trial Balance\",\n        \"type\": \"report\"\n    }\n]"
+  }
+ ],
+ "cards_label": "",
+ "category": "Modules",
+ "charts": [],
+ "creation": "2020-10-07 20:35:16.307218",
+ "developer_mode_only": 0,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Desk Page",
+ "extends_another_page": 0,
+ "hide_custom": 0,
+ "idx": 0,
+ "is_standard": 1,
+ "label": "Accounts",
+ "modified": "2020-10-30 13:33:08.725514",
+ "modified_by": "Administrator",
+ "module": "Accounting",
+ "name": "Accounts",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 0,
+ "shortcuts": []
+}
