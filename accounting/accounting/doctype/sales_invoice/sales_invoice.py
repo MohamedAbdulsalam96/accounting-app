@@ -7,6 +7,7 @@ import frappe
 from frappe.model.document import Document
 from frappe.utils import flt
 from accounting.accounting.general_ledger import make_gl_entries, make_reverse_gl_entries
+from frappe.utils import nowdate
 
 class SalesInvoice(Document):
     def validate(self):
@@ -17,6 +18,7 @@ class SalesInvoice(Document):
     def set_item_rate_and_amount(self):
         for item in self.get("items"):
             item.rate = frappe.db.get_value("Item", item.item, "standard_rate")
+            item.qty = flt(item.qty, item.precision("qty"))
             item.amount = item.rate * item.qty
             
     def set_total_quantity_and_amount(self):
@@ -98,3 +100,60 @@ def make_payment_entry(source_name, target_doc=None):
     }, target_doc)
 
     return doclist
+
+@frappe.whitelist(allow_guest=True)
+def make_sales_invoice(item_name, qty, debit_to, income_account, save=True, submit=False):
+    si = frappe.new_doc("Sales Invoice")
+    si.party = "Jannat Patel"
+    si.posting_date = nowdate()
+    si.payment_due_date = nowdate()
+    si.debit_to = debit_to
+    si.income_account = income_account
+    si.set("items",[
+        {
+            "item": item_name,
+            "qty": qty
+        }
+    ])
+
+    if save or submit:
+        si.insert()
+        if submit:
+            si.submit()
+    
+    return si
+
+@frappe.whitelist(allow_guest=True)
+def update_sales_invoice(item_name, qty, debit_to, income_account, si, save=True, submit=False):
+    if not si:
+        return
+    si = frappe.get_doc("Sales Invoice", si)
+    items = si.items
+    item_found = False
+    for item in items:
+        if item.item == item_name:
+            item_found = True
+            item.update({
+                "qty": item.qty + flt(qty, item.precision("qty"))
+            })
+            break
+    if not item_found:
+        si.append("items", {
+            "item": item_name,
+            "qty": qty
+        })
+    if save or submit:
+        si.save()
+        if submit:
+            si.submit()
+    return si
+
+@frappe.whitelist(allow_guest=True)
+def place_order(si):
+    if not si:
+        return
+    si = frappe.get_doc("Sales Invoice", si)
+
+    si.submit()
+
+    return si

@@ -8,6 +8,7 @@ import unittest
 from frappe.utils import nowdate
 from accounting.accounting.doctype.accounts.test_accounts import create_account, delete_account
 from accounting.accounting.doctype.journal_entry.test_journal_entry import get_gl_entries, delete_gl_entries
+from accounting.accounting.doctype.sales_invoice.sales_invoice import make_sales_invoice
 
 class TestSalesInvoice(unittest.TestCase):
 
@@ -20,7 +21,7 @@ class TestSalesInvoice(unittest.TestCase):
         delete_account("_Test Creditors")
     
     def test_sales_invoice_creation(self):
-        si = make_sales_invoice(1, True, True)
+        si = make_sales_invoice("Headphones", 1, "_Test Debtors", "_Test Creditors",  True, True)
 
         gl_entries = get_gl_entries(si.name, "Sales Invoice")
         self.assertTrue(gl_entries)
@@ -45,7 +46,7 @@ class TestSalesInvoice(unittest.TestCase):
         si.delete()
 
     def test_with_negative_quantity(self):
-        si = make_sales_invoice(-1, False, False)
+        si = make_sales_invoice("Headphones", -1, "_Test Debtors", "_Test Creditors", False, False)
         self.assertRaises(frappe.exceptions.ValidationError, si.insert)
         si.items[0].update({
             "qty": 1
@@ -56,7 +57,7 @@ class TestSalesInvoice(unittest.TestCase):
         si.delete()
 
     def test_reverse_ledger_entry(self):
-        si = make_sales_invoice(1, True, True)
+        si = make_sales_invoice("Headphones", 1, "_Test Debtors", "_Test Creditors", True, True)
 
         gl_entries = get_gl_entries(si.name, "Sales Invoice")
         original_gl_entries_count = len(gl_entries)
@@ -72,25 +73,4 @@ class TestSalesInvoice(unittest.TestCase):
         delete_gl_entries(gl_entries)
         si.delete()
 
-def make_sales_invoice(qty, save=True, submit=False ):
-    si = frappe.new_doc("Sales Invoice")
-    si.party = "Jannat Patel"
-    si.posting_date = nowdate()
-    si.payment_due_date = nowdate()
-    si.debit_to = "_Test Debtors"
-    si.income_account = "_Test Creditors"
-    si.set("items",[
-        {
-            "item": "Headphones",
-            "qty": qty
-        }
-    ])
-
-    if save or submit:
-        si.insert()
-        if submit:
-            si.submit()
-    
-
-    return si
 

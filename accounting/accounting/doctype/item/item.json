@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_guest_to_view": 1,
  "autoname": "field:item_name",
  "creation": "2020-10-07 19:30:46.894939",
  "doctype": "DocType",
@@ -12,9 +13,12 @@
   "column_break",
   "uom",
   "standard_rate",
-  "image",
+  "website_section",
   "show_in_website",
-  "route"
+  "image",
+  "route",
+  "column_break_1",
+  "item_description"
  ],
  "fields": [
   {
@@ -64,15 +68,31 @@
    "label": "Show In Website"
   },
   {
-   "depends_on": "doc.show_in_website",
+   "depends_on": "eval: doc.show_in_website;",
    "fieldname": "route",
    "fieldtype": "Small Text",
    "label": "Route"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "website_section",
+   "fieldtype": "Section Break",
+   "label": "Website"
+  },
+  {
+   "fieldname": "item_description",
+   "fieldtype": "Long Text",
+   "label": "Item Description"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
   }
  ],
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2020-10-27 10:55:35.931858",
+ "modified": "2020-10-28 10:38:56.785302",
  "modified_by": "Administrator",
  "module": "Accounting",
  "name": "Item",

@@ -10,6 +10,7 @@ app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "info@frappe.io"
 app_license = "MIT"
+website_generators = ["Web Page", "Item"]
 
 # Includes in <head>
 # ------------------
