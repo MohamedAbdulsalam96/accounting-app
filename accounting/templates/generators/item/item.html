@@ -11,27 +11,19 @@
                     <img class="item-slideshow-image mt-2 h-100" style="max-height: 200px;" src="{{ image }}"
                         alt="{{ item_name }}">
                 </div>
-                <p class="text-muted">
-                    <span>Price: </span>
-                    <span>$ {{ standard_rate }}</span>
-                </p>
+            </div>
+            <div class="col-md-8">
+                <h1>{{item_name}}</h1>
                 <p class="text-muted">
                     <span>Item Code: </span>
                     <span>{{ item_code }}</span>
                 </p>
-            </div>
-            <div class="col-md-8">
-                <h1>{{item_name}}</h1>
                 <p class="text-justify">
                     {{ item_description }}
                 </p>
-                <div class="d-flex flex-row mb-5 justify-content-between w-50">
-                    <input class="form-control text-right cart-qty border-secondary" style="max-width:80px"
-                        type="number" placeholder="Qty">
-                    <button class=" add-to-cart btn btn-lg btn-primary" data-item-name="{{item_name}}">Add To
-                        Cart</button>
-
-                </div>
+                <h4>$ {{standard_rate}}/{{uom}}</h4>
+                <button class=" add-to-cart btn btn-lg btn-primary mt-5" data-item-name="{{item_name}}">Add To
+                    Cart</button>
             </div>
         </div>
     </div>

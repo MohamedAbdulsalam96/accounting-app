@@ -102,13 +102,22 @@ def make_payment_entry(source_name, target_doc=None):
     return doclist
 
 @frappe.whitelist(allow_guest=True)
-def make_sales_invoice(item_name, qty, debit_to, income_account, save=True, submit=False):
+def add_to_cart(item_name, user, save=True, submit=False):
+    user = set_user(user)
+    si = get_user_cart(user)
+    if si:
+        return update_sales_invoice(item_name, 1, si, save, submit)
+    else:
+        return make_sales_invoice(item_name, 1, user, save, submit)
+
+@frappe.whitelist(allow_guest=True)
+def make_sales_invoice(item_name, qty, user, save=True, submit=False):
     si = frappe.new_doc("Sales Invoice")
-    si.party = "Jannat Patel"
+    si.party = user
     si.posting_date = nowdate()
     si.payment_due_date = nowdate()
-    si.debit_to = debit_to
-    si.income_account = income_account
+    si.debit_to = "Debtors"
+    si.income_account = "Creditors"
     si.set("items",[
         {
             "item": item_name,
@@ -124,36 +133,51 @@ def make_sales_invoice(item_name, qty, debit_to, income_account, save=True, subm
     return si
 
 @frappe.whitelist(allow_guest=True)
-def update_sales_invoice(item_name, qty, debit_to, income_account, si, save=True, submit=False):
-    if not si:
-        return
+def update_sales_invoice(item_name, qty, si, save=True, submit=False):
     si = frappe.get_doc("Sales Invoice", si)
     items = si.items
-    item_found = False
-    for item in items:
-        if item.item == item_name:
-            item_found = True
-            item.update({
-                "qty": item.qty + flt(qty, item.precision("qty"))
+    if item_name:
+        item_found = False
+        for item in items:
+            if item.item == item_name:
+                item_found = True
+                item.update({
+                    "qty": flt(qty, item.precision("qty"))
+                })
+                break
+        if not item_found:
+            si.append("items", {
+                "item": item_name,
+                "qty": qty
             })
-            break
-    if not item_found:
-        si.append("items", {
-            "item": item_name,
-            "qty": qty
-        })
     if save or submit:
         si.save()
         if submit:
             si.submit()
     return si
 
-@frappe.whitelist(allow_guest=True)
-def place_order(si):
+def set_user(user):
+    if user:
+        email = frappe.db.get_value("User", user, "email")
+        customer = frappe.db.sql(""" select party_name from`tabParty` where party_email=%s and party_type="Customer" """, email, as_dict=1)
+        if not customer:
+            party = frappe.new_doc("Party")
+            party.party_name = user
+            party.party_type = "Customer"
+            party.party_email = email
+            party.insert()
+        elif customer:
+            user = customer[0].party_name
+    return user
+
+def get_user_cart(user, get_full_details=False):
+    si = frappe.db.sql(""" select name from `tabSales Invoice` where party=%s and docstatus=0 """, user, as_dict=1)
     if not si:
-        return
-    si = frappe.get_doc("Sales Invoice", si)
+        return None
+    else:
+        return frappe.get_doc("Sales Invoice", si[0].name) if get_full_details else si[0].name
 
-    si.submit()
-
-    return si
+@frappe.whitelist(allow_guest=True)
+def display_user_cart(user, get_full_details):
+    set_user(user)
+    return get_user_cart(user, get_full_details)

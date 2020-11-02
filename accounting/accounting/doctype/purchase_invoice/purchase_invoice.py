@@ -20,9 +20,9 @@ class PurchaseInvoice(Document):
             item.amount = item.rate * item.qty
             
     def set_total_quantity_and_amount(self):
-        self.total_qty, self.total_amount = 0, 0
+        self.total_quantity, self.total_amount = 0, 0
         for item in self.get("items"):
-            self.total_qty = flt(self.total_qty) + flt(item.qty, item.precision("qty"))
+            self.total_quantity = flt(self.total_quantity) + flt(item.qty, item.precision("qty"))
             self.total_amount = flt(self.total_amount) + flt(item.amount, item.precision("amount"))
 
     def check_quantity(self):
